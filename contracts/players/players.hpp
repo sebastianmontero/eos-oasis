@@ -3,15 +3,17 @@
 #include <string>
 
 
-namespace Oasis {
+namespace oasis {
     using namespace eosio;
     using std::string;
 
 
-    class Players : public contract {
+    class players : public contract {
         using contract::contract;
 
         public:
+
+            players(account_name self): contract(self){}
 
           //@abi table item i64
             struct item {
@@ -46,8 +48,6 @@ namespace Oasis {
 
             typedef multi_index<N(player), player> playerIndex;
 
-            Players(account_name self): contract(self){}
-
             //@abi action
             void add(const account_name account, string& username );
 
@@ -64,6 +64,6 @@ namespace Oasis {
             void additem(const account_name account, item purchased_item);      
     };
 
-    EOSIO_ABI(Players, (add)(update)(getplayer)(addability)(additem))
+    EOSIO_ABI(players, (add)(update)(getplayer)(addability)(additem))
 }
 

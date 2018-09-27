@@ -3,6 +3,7 @@
 hwd="/tmp/eosio/work/"
 gwd="/work"
 
+echo parameters $0
 echo "Current working directory -" $1
 
 d="$(basename "$1")"
@@ -25,7 +26,7 @@ then
     fi
 
     echo "Generating ABI..."
-    docker exec nodeos eosiocpp -g $gwd/$d/$d.abi $gwd/$d/$d.cpp
+    docker exec nodeos eosio-cpp -g $gwd/$d/$d.abi $gwd/$d/$d.cpp
 
     if [ $? -ne 0 ] 
     then

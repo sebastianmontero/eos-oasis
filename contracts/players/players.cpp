@@ -1,8 +1,8 @@
-#include "Players.hpp"
+#include "players.hpp"
 
-namespace Oasis {
+namespace oasis {
     
-    void Players::add(const account_name account, string& username ) {
+    void players::add(const account_name account, string& username ) {
         require_auth(account);
 
         playerIndex players(_self, _self);
@@ -22,7 +22,7 @@ namespace Oasis {
 
     }
 
-    void Players::update(const account_name account, uint64_t level, int64_t healthPoints, int64_t energyPoints){
+    void players::update(const account_name account, uint64_t level, int64_t healthPoints, int64_t energyPoints){
         require_auth(account);
 
         playerIndex players(_self, _self);
@@ -50,7 +50,7 @@ namespace Oasis {
 
     }
 
-    void Players::getplayer(const account_name account){
+    void players::getplayer(const account_name account){
         playerIndex players(_self, _self);
 
         auto iterator = players.find(account);
@@ -80,7 +80,7 @@ namespace Oasis {
     }
 
     //@abi action
-    void Players::addability(const account_name account, string& ability){
+    void players::addability(const account_name account, string& ability){
         
         require_auth(account);
 
@@ -95,7 +95,7 @@ namespace Oasis {
     }
 
     //@abi action
-    void Players::additem(const account_name account, item purchased_item){
+    void players::additem(const account_name account, item purchased_item){
         require_auth(account);
         playerIndex players(_self, _self);
 

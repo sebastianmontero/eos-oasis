@@ -34,7 +34,7 @@ then
 fi
 
 echo "Unlocking wallet..."
-cleos wallet unlock --password PW5JT9DJwjo1mXLCTbsQq7rHvHCxD3Pctqnrpf11P5Y8zvJnVbrmp
+cleos wallet unlock --password PW5HrRKYVzXWPqB6RcsvWRYnbYFDuJmd6Y5pheikh1CkJhgbxohcj
 
 # exit_status=$?
 
