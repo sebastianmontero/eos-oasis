@@ -8,7 +8,8 @@ function create_keys(){
 }
 
 function generate_account_name(){
-    local an="$(echo $1 | sed -e 's/[^12345abcdefghijklmnopqrstuvwxyz]//g')"
+    local an="$( echo $1 | tr "[:upper:]" "[:lower:]" )"
+    an="$( echo $an | sed -e 's/[^12345abcdefghijklmnopqrstuvwxyz]//g' )"
     local anl=${#an}
     
     if [ $anl -gt 12 ]
@@ -33,7 +34,7 @@ then
 fi
 
 echo "Unlocking wallet..."
-cleos wallet unlock --password PW5HrRKYVzXWPqB6RcsvWRYnbYFDuJmd6Y5pheikh1CkJhgbxohcj
+cleos wallet unlock --password PW5JT9DJwjo1mXLCTbsQq7rHvHCxD3Pctqnrpf11P5Y8zvJnVbrmp
 
 # exit_status=$?
 

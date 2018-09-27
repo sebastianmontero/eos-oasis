@@ -1,6 +1,8 @@
 {
     "cmake.configureOnOpen": false,
     "files.associations": {
-        "string": "cpp"
+        "string": "cpp",
+        "deque": "cpp",
+        "vector": "cpp"
     }
 }
