@@ -32,6 +32,21 @@ namespace oasis{
 
        product product = *iterator;
        eosio_assert(product.quantity > 0, "Product out of stock");
+
+       asset productPrice = asset(product.price, string_to_symbol(4, "OAS"));
+
+       action(vector<permission_level>(), N(eosiotoken), N(transfer), make_tuple(buyer), _self, productPrice, string(""))).send();
+
+       action(vector<permission_level>(), N(marketplace), N(additem), make_tuple(buyer, 
+            product.product_id,
+            product.name,
+            product.power,
+            product.health,
+            product.ability,
+            product.level_up
+        )).send();
+
+        update(buyer, product.prodcut_id, -1);
        
    }    
 

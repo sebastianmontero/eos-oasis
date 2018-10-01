@@ -28,7 +28,7 @@ namespace oasis {
                 uint64_t primary_key() const { return product_id; }
 
                 EOSLIB_SERIALIZE(product, (product_id)(name)(power)(health)(ability)(level_up)(quantity)(price))
-            }
+            };
 
             typedef multi_index<N(product), product> productIndex;
 
@@ -48,7 +48,7 @@ namespace oasis {
             void remove(const account_name account, uint64_t product_id);
 
 
-    }
+    };
 
     EOSIO_ABI(marketplace, (buy)(getbyid)(add)(update)(remove))
 }
