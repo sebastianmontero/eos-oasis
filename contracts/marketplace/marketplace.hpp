@@ -26,10 +26,29 @@ namespace oasis {
                 uint64_t price;
 
                 uint64_t primary_key() const { return product_id; }
+
+                EOSLIB_SERIALIZE(product, (product_id)(name)(power)(health)(ability)(level_up)(quantity)(price))
             }
 
+            typedef multi_index<N(product), product> productIndex;
+
             //@abi action
-            void add(const account_name account, )
+            void buy(const account_name buyer, uint64_t product_id);
+
+            //@abi action
+            void getbyid(uint64_t product_id);
+
+            //@abi action
+            void add(const account_name account, product newProduct );
+
+            //@abi action
+            void update(const account_name account, uint64_t product_id, uint64_t quantity);
+
+            //@abi action
+            void remove(const account_name account, uint64_t product_id);
+
 
     }
+
+    EOSIO_ABI(marketplace, (buy)(getbyid)(add)(update)(remove))
 }
