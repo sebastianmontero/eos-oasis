@@ -32,7 +32,7 @@ namespace oasis {
         eosio_assert(iterator != players.end(), "Adress for account does not exist");
 
         players.modify(iterator, account, [&](auto& player){
-            player.level = 1;
+            player.level = level;
 
             if((player.health_points - healthPoints) < 0){
                 player.health_points = 0;
@@ -57,24 +57,36 @@ namespace oasis {
         eosio_assert(iterator != players.end(), "Account not found");
 
         //auto currentPlayer = players.get(account);
-        player currentPlayer = *iterator;
+        auto currentPlayer = *iterator;
         print("Username: ", currentPlayer.username.c_str());
-        print("Level: ", currentPlayer.level);
-        print("Health: ", currentPlayer.health_points);
-        print("Energy: ", currentPlayer.energy_points);
+        print(" | Level: ", currentPlayer.level);
+        print(" | Health: ", currentPlayer.health_points);
+        print(" | Energy: ", currentPlayer.energy_points);
 
         vector<string> abilities = currentPlayer.abilities;
 
         if(abilities.size() > 0){
 
-            print("Abilities:");
+            print(" | Abilities:");
 
             for_each(abilities.begin(), abilities.end(), [&](string& ability){
-                print(ability.c_str());
+                print(" ", ability.c_str());
             });
         } else {
-            print("No abilities.");
+            print(" | No abilities.");
         }
+         vector<item> inventory = currentPlayer.inventory;
+         if(inventory.size() > 0){
+
+            print(" | Inventory:");
+
+            for_each(inventory.begin(), inventory.end(), [&](item& item){
+                item.display();
+            });
+        } else {
+            print(" | No Inventory.");
+        }
+
 
 
     }
@@ -100,9 +112,9 @@ namespace oasis {
         playerIndex players(_self, _self);
 
         auto iterator = players.find(account);
-        eosio_assert(iterator != players.end(), "Account not found");
+        eosio_assert(iterator != players.end(), "Account not found.");
 
-        players.modify(iterator, account, [&](player& player){
+        players.modify(iterator, account, [&](auto& player){
             player.energy_points += purchased_item.power;
             player.health_points += purchased_item.health;
             player.level += purchased_item.level_up;
@@ -117,13 +129,7 @@ namespace oasis {
             });
         });
 
-        print("Item Id: ", purchased_item.item_id);
-        print(" | Name: ", purchased_item.name);
-        print(" | Power: ", purchased_item.power);
-        print(" | Health: ", purchased_item.health);
-        print(" | Ability: ", purchased_item.ability);
-        print(" | Level up: ", purchased_item.level_up);
-
+        purchased_item.display();
     }
 
 }

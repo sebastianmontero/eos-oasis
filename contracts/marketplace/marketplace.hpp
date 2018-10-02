@@ -1,10 +1,13 @@
 #include <eosiolib/eosio.hpp>
 #include <eosiolib/print.hpp>
+#include <eosiolib/asset.hpp>
 #include <string>
+#include <tuple>
 
 namespace oasis {
     using namespace eosio;
     using std::string;
+    using std::make_tuple;
 
     class marketplace : public contract {
         

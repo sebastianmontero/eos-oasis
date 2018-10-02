@@ -35,9 +35,9 @@ namespace oasis{
 
        asset productPrice = asset(product.price, string_to_symbol(4, "OAS"));
 
-       action(vector<permission_level>(), N(eosiotoken), N(transfer), make_tuple(buyer), _self, productPrice, string(""))).send();
+       action(permission_level{buyer, N(active)}, N(eosiotoken), N(transfer), make_tuple((buyer), _self, productPrice, string(""))).send();
 
-       action(vector<permission_level>(), N(marketplace), N(additem), make_tuple(buyer, 
+       action(permission_level(buyer, N(active)), N(players), N(additem), make_tuple((buyer), 
             product.product_id,
             product.name,
             product.power,
@@ -46,8 +46,8 @@ namespace oasis{
             product.level_up
         )).send();
 
-        update(buyer, product.prodcut_id, -1);
-       
+        update(buyer, product.product_id, -1);
+
    }    
 
     void marketplace::add(const account_name account, product newProduct){
@@ -56,7 +56,7 @@ namespace oasis{
 
         productIndex products(_self,_self);
 
-        auto iterator = products.find(product.product_id);
+        auto iterator = products.find(newProduct.product_id);
 
         eosio_assert(iterator == products.end(), "Product already exists");
 
@@ -87,7 +87,7 @@ namespace oasis{
         });
     }
 
-    void marketplace::remove(const account_name, uint64_t product_id){
+    void marketplace::remove(const account_name account, uint64_t product_id){
         require_auth(account);
 
         productIndex products(_self, _self);
@@ -96,6 +96,6 @@ namespace oasis{
 
         eosio_assert(iterator != products.end(), "Product not found");
 
-        products.erase(product_id);
+        products.erase(iterator);
     }
 }
